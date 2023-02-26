@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Home"
+        android:id="@+id/home"
+        android:icon="@drawable/ic_baseline_home"/>
+    <item android:title="Scan"
+        android:id="@+id/Scan"
+        android:icon="@drawable/baseline_document_scanner_24"/>
+    <item android:title="History"
+        android:id="@+id/History"
+        android:icon="@drawable/ic_baseline_history_24"/>
+</menu>
