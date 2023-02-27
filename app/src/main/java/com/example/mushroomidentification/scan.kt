@@ -46,63 +46,26 @@ private const val ARG_PARAM2 = "param2"
  * Use the [scan.newInstance] factory method to
  * create an instance of this fragment.
  */
-class scan : Fragment() {
+class scan : Fragment(R.layout.fragment_scan) {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var binding: FragmentScanBinding
+    private lateinit var imageView: ImageView
+    private lateinit var buttonload: Button
+    private lateinit var tvOutput: TextView
+    private val GALLERY_REQUEST_CODE = 123
 
+    private lateinit var button: Button
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scan, container, false)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment scan.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            scan().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-
-
-    }
-
-    private lateinit var binding: FragmentScanBinding
-    private lateinit var imageView: ImageView
-    private lateinit var button: Button
-    private lateinit var tvOutput: TextView
-    private val GALLERY_REQUEST_CODE = 123
-
-
-    @SuppressLint("IntentReset")
-    override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        super.onCreate(savedInstanceState)
-        binding = FragmentScanBinding.inflate(layoutInflater)
-        val view = binding.root
-
-
-        val imageView = binding.imageView
-        val button = binding.btnCaptureImage
-         tvOutput = binding.tvOutput
-        val buttonLoad = binding.btnLoadImage
-
-        button.setOnClickListener {
+        val view: View=inflater.inflate(R.layout.fragment_scan, container, false)
+        button = view.findViewById(R.id.btn_capture_image)
+        button.setOnClickListener{
             if (context?.let { it1 ->
                     ContextCompat.checkSelfPermission(
                         it1,
@@ -114,7 +77,8 @@ class scan : Fragment() {
                 requestPermission.launch(Manifest.permission.CAMERA)
             }
         }
-        buttonLoad.setOnClickListener {
+        buttonload = view.findViewById(R.id.btn_load_image)
+        buttonload.setOnClickListener {
             if (context?.let { it1 ->
                     ContextCompat.checkSelfPermission(
                         it1,
@@ -133,6 +97,7 @@ class scan : Fragment() {
                 requestPermission.launch(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
         }
+        tvOutput = view.findViewById(R.id.tv_output)
         // to redirect user to google
         tvOutput.setOnClickListener {
             val intent = Intent(
@@ -141,12 +106,59 @@ class scan : Fragment() {
             )
             startActivity(intent)
         }
-
         // to download image when longPress on ImageView
+        imageView = view.findViewById(R.id.imageView)
         imageView.setOnLongClickListener {
             requestPermissionLauncher.launch(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+
             return@setOnLongClickListener true
         }
+        return view
+    }
+
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment scan.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance() =
+            scan().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+
+
+    }
+
+
+
+    @SuppressLint("IntentReset")
+    override fun onCreate(savedInstanceState: Bundle?) {
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+        super.onCreate(savedInstanceState)
+        binding = FragmentScanBinding.inflate(layoutInflater)
+
+
+        val imageView = binding.imageView
+        button = binding.btnCaptureImage
+        tvOutput = binding.tvOutput
+        val buttonLoad = binding.btnLoadImage
+
+
+
+
+
+
+
     }
 
     //request camera permission
