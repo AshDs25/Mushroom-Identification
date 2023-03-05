@@ -5,10 +5,243 @@
     android:layout_height="match_parent"
     tools:context=".Home">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- Hi Username! -->
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:id="@+id/hi_username"
+        android:layout_width="175dp"
+        android:layout_height="29dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="105dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="24dp"
+        android:text="Hi Username"
+        android:gravity="top"
+        android:textSize="20sp"
+        android:textColor="#46644B"
+        android:lineHeight="29sp"
+        android:textStyle="bold"
+        />
+    <!-- Most Searched Mushrooms -->
+    <TextView
+        android:id="@+id/most_search"
+        android:layout_width="315dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
+        android:layout_marginTop="60dp"
+        android:gravity="top"
+        android:text="Most Searched Mushrooms"
+        android:textColor="#46644B"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <SearchView
+        android:layout_width="342dp"
+        android:layout_height="20dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginTop="100dp"
+        android:background="#00000000"
+        android:textColor="#46644B"/>
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="45dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="212dp"
+        android:text="Name"
+        android:textColor="#A7bb92"
+        android:gravity="top"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/morel_mushr"
+        android:layout_width="144dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="233dp"
+        android:text="Morel Mushroom"
+        android:textColor="#46644B"
+        android:gravity="top"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/toxicity"
+        android:layout_width="56dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="263dp"
+        android:text="Toxicity"
+        android:textColor="#A7bb92"
+        android:textStyle="bold"
+        android:gravity="top"
+        />
+    <TextView
+        android:id="@+id/some_id"
+        android:layout_width="26dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="284dp"
+        android:text="--%"
+        android:textColor="#46644B"
+        android:textStyle="bold"
+        android:gravity="top"
+        />
+    <!-- View more -->
+    <TextView
+        android:id="@+id/view_more"
+        android:layout_width="69dp"
+        android:layout_height="19dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="140dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="305dp"
+        android:text="View More"
+        android:textColor="#879D8B"
+        android:gravity="top"
+        android:textStyle="bold"
+        />
+
+    <View
+        android:id="@+id/rectangle_2"
+        android:layout_width="200dp"
+        android:layout_height="210dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="140dp"
+        android:background="@drawable/rectangle_2"
+        android:elevation="23dp" />
+
+    <!-- History -->
+    <TextView
+        android:id="@+id/history"
+        android:layout_width="85dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="355dp"
+        android:text="History"
+        android:gravity="top"
+        android:textColor="#46644B"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        />
+    <!-- Description -->
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="86dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="228dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="520dp"
+        android:text="Description"
+        android:gravity="top"
+        android:textStyle="bold"
+        android:textColor="#879D8B"
+        />
+    <!-- Toxicity -->
+    <TextView
+        android:id="@+id/toxicity2"
+        android:layout_width="56dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="228dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="470dp"
+        android:text="Toxicity"
+        android:gravity="top"
+        android:textStyle="bold"
+        android:textColor="#879D8B"
+        />
+    <!-- Name -->
+    <TextView
+        android:id="@+id/name2"
+        android:layout_width="45dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="228dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="420dp"
+        android:text="Name"
+        android:gravity="top"
+        android:textStyle="bold"
+        android:textColor="#879D8B"
+        />
+    <TextView
+        android:id="@+id/some_id2"
+        android:layout_width="26dp"
+        android:layout_height="22dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="230dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="490dp"
+        android:text="--%"
+        android:gravity="top"
+        android:textStyle="bold"
+        android:textColor="#46644B"
+        />
+    <!-- Yellow Field-cap -->
+    <TextView
+        android:id="@+id/yellow_fiel"
+        android:layout_width="137dp"
+        android:layout_height="25dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="228dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="440dp"
+        android:text="Yellow Field Cap"
+        android:gravity="top"
+        android:textStyle="bold"
+        android:textColor="#46644B"
+        />
+    <!-- Rectangle 25 -->
+    <View
+        android:id="@+id/rectangle_21"
+        android:layout_width="140.9dp"
+        android:layout_height="177.08dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="40dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="395dp"
+        android:background="@drawable/rectangle_21"
+        />
+    <!-- Ellipse 14 -->
+    <View
+        android:id="@+id/ellipse_14"
+        android:layout_width="135dp"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="533dp"
+        android:background="@drawable/ellipse_14"
+        />
+
+    <!-- Rectangle 28 -->
+    <View
+        android:id="@+id/rectangle_23"
+        android:layout_width="355dp"
+        android:layout_height="190dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="28dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="395dp"
+        android:background="@drawable/rectangle_23"
+        android:elevation="12dp"
+        />
 
 </FrameLayout>
