@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.mushroomidentification.databinding.FragmentScanBinding
+import com.example.mushroomidentification.ml.FinalModel
 import com.example.mushroomidentification.ml.Mush1
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
@@ -55,6 +56,8 @@ class scan : Fragment(R.layout.fragment_scan) {
     private lateinit var imageView: ImageView
     private lateinit var buttonload: Button
     private lateinit var tvOutput: TextView
+    private lateinit var textview: TextView
+    private lateinit var text_desc: TextView
     private val GALLERY_REQUEST_CODE = 123
 
     private lateinit var button: Button
@@ -98,11 +101,14 @@ class scan : Fragment(R.layout.fragment_scan) {
             }
         }
         tvOutput = view.findViewById(R.id.tv_output)
+        textview = view.findViewById(R.id.textview)
+        text_desc = view.findViewById(R.id.description_text)
         // to redirect user to google
         tvOutput.setOnClickListener {
+            val index = tvOutput.text.indexOf("-")
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://www.google.com/search?q=${tvOutput.text}")
+                Uri.parse("https://www.google.com/search?q=${tvOutput.text.substring(0,index -1)}")
             )
             startActivity(intent)
         }
@@ -213,8 +219,9 @@ class scan : Fragment(R.layout.fragment_scan) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun outputGenerator(bitmap: Bitmap) {
-        val model = context?.let { Mush1.newInstance(it) }
+        val model = context?.let { FinalModel.newInstance(it) }
 
 // Creates inputs for reference.
         val inputFeature0 =
@@ -268,21 +275,28 @@ class scan : Fragment(R.layout.fragment_scan) {
                 maxPos = i
             }
         }
-        val classes = arrayOf<String>(
-            "Autumn Skull",
-            "Crown-tipped",
-            "Death Cap (A",
-            "Jack O' Lant",
-            "Lobster Mush",
-            "Magic Mushro",
-            "Maitake Mush",
-            "Red Chantere",
-            "Resinous Pol",
-            "The Fly Agar",
-            "Yellow Field"
-        )
+//        val classes = arrayOf<String>(
+//            "Autumn Skull",
+//            "Crown-tipped",
+//            "Death Cap (A",
+//            "Jack O' Lant",
+//            "Lobster Mush",
+//            "Magic Mushro",
+//            "Maitake Mush",
+//            "Red Chantere",
+//            "Resinous Pol",
+//            "The Fly Agar",
+//            "Yellow Field"
+//        )
+        //val classes = arrayOf<String>("Autumn Skullcap (Galerina marginata) - Poisonous!","2.","Common Split Gill - Non Poisonous","4.","5.","6.","7.","8.","9.","10.","11.","12.","13.","14.","15.","16.")
+        val common_name = arrayOf<String>("Autumn Skullcap","Button Mushroom","Common Split Gill","Crown-tipped coral","Death Cap","False Parasol","Jack O' Lantern","Lion's Mane","Magic Mushroom","Maitake Mushroom","Mower's Mushroom","Oyster Mushroom","The Fly Agaric","Turkey tail","Yellow Field Cap","Yellow Patches")
+        val scientific_name = arrayOf<String>("Galerina marginata","Agaricus bisporus","Schizophyllum commune","Artomyces pyxidatus","Amanita phalloides","Chlorophyllum molybdites","Omphalotus illudens","Hericium erinaceus","Psilocybe cubensis","Grifola frondosa","Panaeolina foenisecii","Pleurotus ostreatus","Amanita muscaria","Trametes versicolor","Bolbitius titubans","Amenita flavoconia")
+        val values = arrayOf<String>("Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Poisonous!","Poisonous!","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Poisonous!")
+        tvOutput.setText(common_name[maxPos]+ " - " + values[maxPos])
+        val confidence:Double = Math.round(maxConfidence * 1000.0) / 1000.0
+        textview.setText("Output:  "+ confidence*100+"%")
 
-        tvOutput.setText(classes[maxPos] + maxConfidence * 100)
+        text_desc.setText("Scientific Name: "+scientific_name[maxPos]+"\n More details about mushroom (if poisonous mush can be eaten), if medicial? if it can be hallucinogenic? not to be consumed with? ")
         //Toast.makeText(this, "$outputFeature0", Toast.LENGTH_SHORT).show()
 
 // Releases model resources if no longer used.

@@ -12,7 +12,7 @@
         android:id="@+id/btn_load_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="18dp"
         android:text="Upload Image"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintHorizontal_bias="0.474"
@@ -22,9 +22,9 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="260dp"
-        android:layout_height="386dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="250dp"
+        android:layout_height="375dp"
+        android:layout_marginTop="20dp"
         android:src="@drawable/placehold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
@@ -35,7 +35,7 @@
         android:id="@+id/btn_capture_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="18dp"
         android:text="Click Picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.258"
@@ -46,8 +46,8 @@
         android:id="@+id/textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="48dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="15dp"
         android:text="Output: "
         android:textColor="@android:color/black"
         android:textSize="18sp"
@@ -58,19 +58,22 @@
         android:id="@+id/tv_output"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="50dp"
         android:text=" Results here"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@id/textview"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_capture_image" />
 
     <TextView
+        android:id="@+id/googletext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="40dp"
+        android:textSize="12sp"
         android:text="Click on the result text to search on Google"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview" />
 
@@ -79,7 +82,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_begin="206dp" />
+
+    <ScrollView
+        app:layout_constraintTop_toBottomOf="@id/googletext"
+        android:layout_marginTop="20dp"
+        android:layout_width="350dp"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="550dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/description_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DESCRIPTION: This is my text view inside of Another Scrollable view and I want to test that if I keep typing if the text goes outside the render or does it wrap inside the scroll view itself and looks like it does. So I am pretty happy with it. But what if I keep writing, Oh yes, a scroll bar! Thats perfect :) lfahdofhap odfhpoahdfpohad pofhpoadshfo pdahfohaodfhoadh fophds oufhaodhf" />
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
