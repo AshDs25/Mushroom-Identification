@@ -152,19 +152,10 @@ class scan : Fragment(R.layout.fragment_scan) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         binding = FragmentScanBinding.inflate(layoutInflater)
-
-
         val imageView = binding.imageView
         button = binding.btnCaptureImage
         tvOutput = binding.tvOutput
         val buttonLoad = binding.btnLoadImage
-
-
-
-
-
-
-
     }
 
     //request camera permission
