@@ -28,6 +28,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.mushroomidentification.databinding.FragmentScanBinding
+import com.example.mushroomidentification.ml.FinalModel
 import com.example.mushroomidentification.ml.Mush1
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
@@ -55,6 +56,8 @@ class scan : Fragment(R.layout.fragment_scan) {
     private lateinit var imageView: ImageView
     private lateinit var buttonload: Button
     private lateinit var tvOutput: TextView
+    private lateinit var textview: TextView
+    private lateinit var text_desc: TextView
     private val GALLERY_REQUEST_CODE = 123
 
     private lateinit var button: Button
@@ -98,11 +101,14 @@ class scan : Fragment(R.layout.fragment_scan) {
             }
         }
         tvOutput = view.findViewById(R.id.tv_output)
+        textview = view.findViewById(R.id.textview)
+        text_desc = view.findViewById(R.id.description_text)
         // to redirect user to google
         tvOutput.setOnClickListener {
+            val index = tvOutput.text.indexOf("-")
             val intent = Intent(
                 Intent.ACTION_VIEW,
-                Uri.parse("https://www.google.com/search?q=${tvOutput.text}")
+                Uri.parse("https://www.google.com/search?q=${tvOutput.text.substring(0,index -1)}")
             )
             startActivity(intent)
         }
@@ -115,8 +121,6 @@ class scan : Fragment(R.layout.fragment_scan) {
         }
         return view
     }
-
-
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -135,30 +139,17 @@ class scan : Fragment(R.layout.fragment_scan) {
                     putString(ARG_PARAM2, param2)
                 }
             }
-
-
     }
-
-
 
     @SuppressLint("IntentReset")
     override fun onCreate(savedInstanceState: Bundle?) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         binding = FragmentScanBinding.inflate(layoutInflater)
-
-
         val imageView = binding.imageView
         button = binding.btnCaptureImage
         tvOutput = binding.tvOutput
         val buttonLoad = binding.btnLoadImage
-
-
-
-
-
-
-
     }
 
     //request camera permission
@@ -180,7 +171,6 @@ class scan : Fragment(R.layout.fragment_scan) {
         registerForActivityResult(ActivityResultContracts.TakePicturePreview()) { bitmap ->
             if (bitmap != null) {
                 imageView.setImageBitmap(bitmap)
-//            Toast.makeText(this,"outputGenerator", Toast.LENGTH_SHORT).show()
                 outputGenerator(bitmap)
             }
         }
@@ -188,7 +178,6 @@ class scan : Fragment(R.layout.fragment_scan) {
     // to get image from gallery
     private val onresult =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            Log.i("TAG", "This is the result: ${result.data} ${result.resultCode}")
             onResultReceived(GALLERY_REQUEST_CODE, result)
         }
 
@@ -203,7 +192,6 @@ class scan : Fragment(R.layout.fragment_scan) {
                         val bitmap =
                             BitmapFactory.decodeStream(resolver.openInputStream(uri))
                         imageView.setImageBitmap(bitmap)
-//                        Toast.makeText(this,"outputGenerator", Toast.LENGTH_SHORT).show()
                         outputGenerator(bitmap)
                     }
                 } else {
@@ -213,8 +201,9 @@ class scan : Fragment(R.layout.fragment_scan) {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun outputGenerator(bitmap: Bitmap) {
-        val model = context?.let { Mush1.newInstance(it) }
+        val model = context?.let { FinalModel.newInstance(it) }
 
 // Creates inputs for reference.
         val inputFeature0 =
@@ -222,33 +211,19 @@ class scan : Fragment(R.layout.fragment_scan) {
 
         var resize: Bitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true)
 
-
         val byteBuffer = ByteBuffer.allocateDirect(4 * 224 * 224 * 3)
         byteBuffer.order(ByteOrder.nativeOrder())
         val intValues = IntArray(224 * 224)
-        Log.i("TAG", "outputGenerator&&&&&&&&&&&&&&&&&: ${intValues.size}")
-        //val intValues: IntArray = intArrayOf(224 * 224)
-        Log.i("TAG", "outputGenerator&&&&&&&&&&&&&&&&&: ${resize.width}")
-        Log.i("TAG", "outputGenerator&&&&&&&&&&&&&&&&&: ${resize.height}")
         resize.getPixels(intValues, 0, resize.width, 0, 0, resize.width, resize.height)
         var pixel = 0
         for (i in 0..223) {
-            //Log.i("TAG", "print I $i")
             for (j in 0..223) {
-                //Log.i("TAG", "PIXEL************************ $pixel")
                 var v = intValues[pixel++] // RGB
                 byteBuffer.putFloat(((v shr 16) and 0xFF) * (1.0f / 255.0f))
                 byteBuffer.putFloat(((v shr 8) and 0xFF) * (1.0f / 255.0f))
                 byteBuffer.putFloat((v and 0xFF) * (1.0f / 255.0f))
             }
-            //Log.i("TAG", "outputGenerator&&&&&&&&&&&&&&&&&:111")
         }
-        Log.i("TAG", "outputGenerator&&&&&&&&&&&&&&&&&:333")
-
-
-//        var resize: Bitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true)
-//        var theBuffer = TensorImage.fromBitmap(resize)
-//        var byteBuffer = theBuffer.buffer
         Log.d("shape", byteBuffer.toString())
         Log.d("shape", inputFeature0.buffer.toString())
         inputFeature0.loadBuffer(byteBuffer)
@@ -263,72 +238,35 @@ class scan : Fragment(R.layout.fragment_scan) {
         print(confidences.size)
         for (i in 0..confidences.size - 1) {
             if (confidences[i] > maxConfidence) {
-                //print(confidences[i])
                 maxConfidence = confidences[i]
                 maxPos = i
             }
         }
-        val classes = arrayOf<String>(
-            "Autumn Skull",
-            "Crown-tipped",
-            "Death Cap (A",
-            "Jack O' Lant",
-            "Lobster Mush",
-            "Magic Mushro",
-            "Maitake Mush",
-            "Red Chantere",
-            "Resinous Pol",
-            "The Fly Agar",
-            "Yellow Field"
-        )
 
-        tvOutput.setText(classes[maxPos] + maxConfidence * 100)
-        //Toast.makeText(this, "$outputFeature0", Toast.LENGTH_SHORT).show()
+        val common_name = arrayOf<String>("Autumn Skullcap","Button Mushroom","Common Split Gill","Crown-tipped coral","Death Cap","False Parasol","Jack O' Lantern","Lion's Mane","Magic Mushroom","Maitake Mushroom","Mower's Mushroom","Oyster Mushroom","The Fly Agaric","Turkey tail","Yellow Field Cap","Yellow Patches")
+
+        val scientific_name = arrayOf<String>("Galerina marginata","Agaricus bisporus","Schizophyllum commune","Artomyces pyxidatus","Amanita phalloides","Chlorophyllum molybdites","Omphalotus illudens","Hericium erinaceus","Psilocybe cubensis","Grifola frondosa","Panaeolina foenisecii","Pleurotus ostreatus","Amanita muscaria","Trametes versicolor","Bolbitius titubans","Amenita flavoconia")
+
+        val values = arrayOf<String>("Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Poisonous!","Poisonous!","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Poisonous!")
+
+        tvOutput.setText(common_name[maxPos]+ " - " + values[maxPos])
+        val confidence:Double = Math.round(maxConfidence * 1000.0) / 1000.0
+        textview.setText("Output:  "+ confidence*100+"%")
+
+        text_desc.setText("Scientific Name: "+scientific_name[maxPos]+"\n More details about mushroom (if poisonous mush can be eaten), if medicial? if it can be hallucinogenic? not to be consumed with? ")
 
 // Releases model resources if no longer used.
         model.close()
 
-
-//        //ImageProcessor imageProcessor = new ImageProcessor.Builder().add(new ResizeOp(224,224,ResizeOp.ResizeMethod.BILINEAR)).build()
-//        val model = Mush1.newInstance(this)
-//        var resize: Bitmap = Bitmap.createScaledBitmap(bitmap, 224, 224, true)
-//        var theBuffer = TensorImage.fromBitmap(resize)
-//        var byteBuffer = theBuffer.buffer
-//
-//        // Creates inputs for reference.
-//        //val newBitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true)
-//       // val image = TensorImage.fromBitmap(newBitmap)
-//        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.UINT8)
-//        inputFeature0.loadBuffer(byteBuffer)
-//
-//        // Runs model inference and gets result.
-//        val outputs = model.process(inputFeature0)
-//        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
-//        var max = getMax(outputFeature0.floatArray)
-//        val fileName = "labels.txt"
-//        val inputString = application.assets.open(fileName).bufferedReader().use{it.readText()}
-//        var townlist = inputString.split("\n")
-//        tvOutput.text = townlist[max]
-//        Log.i("TAG", "outputGenerator: $townlist")
-//
-////        // Releases model resources if no longer used.
-////        model.close()
-
+        //Inserting identified mushroom in the Table
+        //creating the mush obj
+        var mush = mush_obj(common_name[maxPos]+ " - " + values[maxPos],scientific_name[maxPos])
+        var db = context?.let { DatabaseHandler(it) }
+        if (db != null) {
+            db.insertData(mush)
+        }
     }
 
-    //    fun getMax(arr:FloatArray) : Int{
-//        var index = 0
-//        var min = 0.0f
-//
-//        for(i in 0..1000){
-//            if(arr[i]>min){
-//                index = i
-//                min = arr[i]
-//            }
-//        }
-//        return index
-//
-//    }
     // to download the image to device
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
@@ -352,7 +290,6 @@ class scan : Fragment(R.layout.fragment_scan) {
             }
         }
 
-
     // fun that takes a bitmap and store to users device
     private fun downloadImage(mBitmap: Bitmap): Uri? {
         val contentValues = ContentValues().apply {
@@ -375,12 +312,9 @@ class scan : Fragment(R.layout.fragment_scan) {
                             Toast.makeText(this, "Image Saved", Toast.LENGTH_SHORT).show()
                     }
                 }
-
                 return it
             }
         }
         return null
     }
-
-
 }

@@ -113,6 +113,8 @@
         android:textStyle="bold"
         />
 
+    <!-- History -->
+
     <View
         android:id="@+id/rectangle_2"
         android:layout_width="200dp"
@@ -124,7 +126,6 @@
         android:background="@drawable/rectangle_2"
         android:elevation="23dp" />
 
-    <!-- History -->
     <TextView
         android:id="@+id/history"
         android:layout_width="85dp"
