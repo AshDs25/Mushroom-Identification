@@ -102,7 +102,8 @@
                 android:id="@+id/description_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="DESCRIPTION: This is my text view inside of Another Scrollable view and I want to test that if I keep typing if the text goes outside the render or does it wrap inside the scroll view itself and looks like it does. So I am pretty happy with it. But what if I keep writing, Oh yes, a scroll bar! Thats perfect :) lfahdofhap odfhpoahdfpohad pofhpoadshfo pdahfohaodfhoadh fophds oufhaodhf" />
+                android:text="DESCRIPTION:\nThe description of the Identified mushroom will be displayed here giving more information about the mushroom like origin, medicial properties, hallucinogenic, etc"
+                android:layout_marginBottom="18dp"/>
         </LinearLayout>
     </ScrollView>
 

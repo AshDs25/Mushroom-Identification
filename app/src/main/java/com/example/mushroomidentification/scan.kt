@@ -247,7 +247,8 @@ class scan : Fragment(R.layout.fragment_scan) {
             "Button Mushroom",
             "Common Split Gill",
             "Crown-tipped coral",
-            "Death Cap","False Parasol",
+            "Death Cap",
+            "False Parasol",
             "Jack O' Lantern",
             "Lion's Mane",
             "Magic Mushroom",
@@ -295,11 +296,32 @@ class scan : Fragment(R.layout.fragment_scan) {
             "Non Poisonous",
             "Poisonous!")
 
+        val description = arrayOf<String>(
+            "Also known as - funeral bell, deadly skullcap, autumn skullcap or deadly galerina. Galerina marginata,is a species of extremely poisonous mushroom-forming fungus in the family Hymenogastraceae of the order Agaricales. It contains the same deadly amatoxins found in the death cap\n",
+            "Agaricus bisporus is an edible basidiomycete mushroom native to grasslands in Eurasia and North America. It has two color states while immature – white and brown – both of which have various names, with additional names for the mature state. It is the most familiar mushroom for most of us — it is the commercial mushroom sold in grocery stores and put on pizza.\n",
+            "Schizophyllum commune is a species of fungus in the genus Schizophyllum. The mushroom resembles undulating waves of tightly packed corals or loose Chinese fan. \"Gillies\" or \"split gills\" vary from creamy yellow to pale white in colour. The cap is small, 1–4 centimetres wide with a dense yet spongey body texture.The species is edible and widely consumed in Mexico and some tropical countries.\n",
+            "Artomyces pyxidatus, also known as the crown-tipped coral, is part of coral (clavarioid) fungi, which groups together all fungi that create upright branches as their fruiting bodies. It grows on wood (usually the wood of hardwoods); its colors, when fresh, are whitish to yellowish; and its branch tips are distinctively \"crowned,\" featuring a tiny cuplike depression surrounded by 3-6 points\n",
+            "Amanita phalloides, also known as 'death cap', is one of the most poisonous mushrooms, being involved in the majority of human fatal cases of mushroom poisoning worldwide. This species contains three main groups of toxins: amatoxins, phallotoxins, and virotoxins.\n",
+            "It is a widespread mushroom. Consumption causes severe gastrointestinal symptoms of vomiting and diarrhea, it is commonly conflated with the shaggy parasol (Chlorophyllum rhacodes) or shaggy mane (Coprinus comatus), and is the most commonly misidentified poisonous mushroom due to its large size and similarity to the edible parasol mushroom(Macrolepiota procera), as well as its habit of growing in areas near human habitation. The nature of the poisoning is predominantly gastrointestinal.\n",
+            "This species is fairly easy to identify. It grows in clusters on wood, its colors are bright orange, its gills run down the stem, it has a white to pale yellow spore print, and its flesh, when sliced open, is orange. The Jack O'Lantern mushroom is sometimes confused with chanterelles --especially when it appears to be growing terrestrially rather than from wood.\n",
+            "Also known as - lion's mane mushroom, mountain-priest mushroom, bearded tooth fungus, and bearded hedgehog. It is an edible mushroom belonging to the tooth fungus group. H. erinaceus can be mistaken for other species of Hericium, which grow across the same range. In the wild, these mushrooms are common during late summer and fall on hardwoods, particularly American beech and maple. Usually H. erinaceus is considered saprophytic, as it mostly feeds on dead trees. It can also be found on living trees, so may be a tree parasite.\n",
+            "It is Hallucinogenic and also known as - magic mushrooms, golden halos, cubes, or gold caps. It is the best-known psilocybin mushroom due to its wide distribution and ease of cultivation. This mushroom being optimal for home cultivation specifically, as was suggested in the 1970s, is primarily what led to cubensis being the psilocybin mushroom species most common on the black market as a street drug. \n",
+            "Grifola frondosa (G. frondosa), generally known as hen-of-the-woods or maitake in Japanese and hui-shu-hua in Chinese, is an edible mushroom with both nutritional and medicinal properties. Grifola frondosa is a polypore mushroom that grows at the base of trees, particularly old growth oaks or maples. It is typically found in late summer to early autumn. It is native to China, Europe, and North America.\n",
+            "Also known as - Brown Mottlegill, Mower’s Mushroom and the Haymaker. Panaeolina foenisecii springs up on any lawn that is regularly mown but not intensively dosed with lots of artificial fertilisers or selective herbicides. It is probably the most common of the ‘common or garden’ lawn mushrooms, and unfortunately it is inedible and can cause sickness if eaten. (Toddlers are particularly vulnerable!)\n",
+            "Also known as - Oyster Mushroom, oyster fungus, hiratake, or pearl oyster mushroom. leurotus ostreatus is easily recognized by the way it grows on wood in shelf-like clusters; its relatively large size; its whitish gills that run down a stubby, nearly-absent stem; and its whitish to lilac spore print. It appears between October and early April across North America, and features a brown cap. \n",
+            "The Fly Agaric, Amanita muscaria, is a hallucinogen and must be considered poisonous. These attractive fungi often appear in groups and are a common sight in all kinds of woodlands.When they first emerge from the leaf litter of the forest floor, the young fruitbodies are covered entirely in pointed white warts, as seen here. As the caps expand the red pellicle shows through until eventually the cap comprises mainly red skin with white warts distributed more or less evenly across its surface. Heavy rain or even contact with animals is sometimes sufficient to remove some or all of the white flakes from the cap of a Fly Agaric, so you may see some 'bald' specimens.\n",
+            "Coriolus versicolor, also known as Trametes versicolor and Polyporus versicolor, is a common polypore mushroom found throughout the world and also a well-known traditional medicinal mushroom growing on tree trunks.\n",
+            "Bolbitius titubans, also known as Bolbitius vitellinus, is a widespread species of mushroom found in America and Europe. It grows chiefly on dung or heavily fertilized soil, and sometimes on grass. It is nonpoisonous. \n",
+            "Also known as - yellow patches, yellow wart, orange amanita, yellow-dust amanita or the American yellow dust amanita. It is a species of mushroom in the family Amanitaceae. It has an orangish-yellow cap with yellowish-orange patches or warts, a yellowish-orange annulus, and a white to orange stem"
+
+
+        )
+
         tvOutput.setText(common_name[maxPos]+ " - " + values[maxPos])
         val confidence:Double = Math.round(maxConfidence * 1000.0) / 1000.0
         textview.setText("Output:  "+ confidence*100+"%")
 
-        text_desc.setText("Scientific Name: "+scientific_name[maxPos]+"\n More details about mushroom (if poisonous mush can be eaten), if medicial? if it can be hallucinogenic? not to be consumed with? ")
+        text_desc.setText(description[maxPos])
 
         // Releases model resources if no longer used.
         model.close()
