@@ -29,7 +29,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.mushroomidentification.databinding.FragmentScanBinding
 import com.example.mushroomidentification.ml.FinalModel
-import com.example.mushroomidentification.ml.Mush1
 import org.tensorflow.lite.DataType
 import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.io.IOException
@@ -228,7 +227,7 @@ class scan : Fragment(R.layout.fragment_scan) {
         Log.d("shape", inputFeature0.buffer.toString())
         inputFeature0.loadBuffer(byteBuffer)
 
-// Runs model inference and gets result.
+        // Runs model inference and gets result.
         val outputs = model!!.process(inputFeature0)
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
@@ -243,11 +242,58 @@ class scan : Fragment(R.layout.fragment_scan) {
             }
         }
 
-        val common_name = arrayOf<String>("Autumn Skullcap","Button Mushroom","Common Split Gill","Crown-tipped coral","Death Cap","False Parasol","Jack O' Lantern","Lion's Mane","Magic Mushroom","Maitake Mushroom","Mower's Mushroom","Oyster Mushroom","The Fly Agaric","Turkey tail","Yellow Field Cap","Yellow Patches")
+        val common_name = arrayOf<String>(
+            "Autumn Skullcap",
+            "Button Mushroom",
+            "Common Split Gill",
+            "Crown-tipped coral",
+            "Death Cap","False Parasol",
+            "Jack O' Lantern",
+            "Lion's Mane",
+            "Magic Mushroom",
+            "Maitake Mushroom",
+            "Mower's Mushroom",
+            "Oyster Mushroom",
+            "The Fly Agaric",
+            "Turkey tail",
+            "Yellow Field Cap",
+            "Yellow Patches")
 
-        val scientific_name = arrayOf<String>("Galerina marginata","Agaricus bisporus","Schizophyllum commune","Artomyces pyxidatus","Amanita phalloides","Chlorophyllum molybdites","Omphalotus illudens","Hericium erinaceus","Psilocybe cubensis","Grifola frondosa","Panaeolina foenisecii","Pleurotus ostreatus","Amanita muscaria","Trametes versicolor","Bolbitius titubans","Amenita flavoconia")
+        val scientific_name = arrayOf<String>(
+            "Galerina marginata",
+            "Agaricus bisporus",
+            "Schizophyllum commune",
+            "Artomyces pyxidatus",
+            "Amanita phalloides",
+            "Chlorophyllum molybdites",
+            "Omphalotus illudens",
+            "Hericium erinaceus",
+            "Psilocybe cubensis",
+            "Grifola frondosa",
+            "Panaeolina foenisecii",
+            "Pleurotus ostreatus",
+            "Amanita muscaria",
+            "Trametes versicolor",
+            "Bolbitius titubans",
+            "Amenita flavoconia")
 
-        val values = arrayOf<String>("Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Poisonous!","Poisonous!","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Non Poisonous","Poisonous!","Non Poisonous","Non Poisonous","Poisonous!")
+        val values = arrayOf<String>(
+            "Poisonous!",
+            "Non Poisonous",
+            "Non Poisonous",
+            "Non Poisonous",
+            "Poisonous!",
+            "Poisonous!",
+            "Poisonous!",
+            "Non Poisonous",
+            "Poisonous!",
+            "Non Poisonous",
+            "Non Poisonous",
+            "Non Poisonous",
+            "Poisonous!",
+            "Non Poisonous",
+            "Non Poisonous",
+            "Poisonous!")
 
         tvOutput.setText(common_name[maxPos]+ " - " + values[maxPos])
         val confidence:Double = Math.round(maxConfidence * 1000.0) / 1000.0
@@ -255,12 +301,12 @@ class scan : Fragment(R.layout.fragment_scan) {
 
         text_desc.setText("Scientific Name: "+scientific_name[maxPos]+"\n More details about mushroom (if poisonous mush can be eaten), if medicial? if it can be hallucinogenic? not to be consumed with? ")
 
-// Releases model resources if no longer used.
+        // Releases model resources if no longer used.
         model.close()
 
         //Inserting identified mushroom in the Table
         //creating the mush obj
-        var mush = mush_obj(common_name[maxPos]+ " - " + values[maxPos],scientific_name[maxPos])
+        var mush = MushroomItem(common_name[maxPos]+ " - " + values[maxPos],scientific_name[maxPos],(confidence*100).toString())
         var db = context?.let { DatabaseHandler(it) }
         if (db != null) {
             db.insertData(mush)

@@ -238,11 +238,10 @@
         android:layout_width="355dp"
         android:layout_height="190dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="28dp"
         android:layout_alignParentTop="true"
+        android:layout_marginLeft="28dp"
         android:layout_marginTop="395dp"
         android:background="@drawable/rectangle_23"
-        android:elevation="12dp"
-        />
+        android:elevation="12dp" />
 
 </FrameLayout>
