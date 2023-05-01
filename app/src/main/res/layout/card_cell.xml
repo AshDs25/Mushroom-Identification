@@ -4,7 +4,7 @@
     xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -16,8 +16,7 @@
         app:cardCornerRadius="15dp"
         app:cardElevation="7dp"
         card_view:cardPreventCornerOverlap="true"
-        card_view:cardUseCompatPadding="true"
-        android:layout_marginBottom="4dp">
+        card_view:cardUseCompatPadding="true">
 
         <LinearLayout
             android:layout_width="160dp"

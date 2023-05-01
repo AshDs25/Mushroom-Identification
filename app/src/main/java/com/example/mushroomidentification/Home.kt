@@ -138,7 +138,7 @@ Instructions:
             )
 recipeList.add(recipe2)
             val recipe3 = Recipe(
-                R.drawable.truff_mush,
+                R.drawable.stuff_mush,
                 "Stuffed Mushrooms",
                 "Stuffed mushrooms are a delicious appetizer or side dish made by filling mushroom caps with a flavorful mixture of breadcrumbs, cheese, herbs, and other ingredients, and then baking or grilling until golden brown and tender. They are a popular vegetarian option and can be customized to suit a variety of tastes and dietary restrictions.",
                 """Ingredients:
@@ -161,8 +161,61 @@ Instructions:
 7.Serve hot as an appetizer or side dish.""")
             recipeList.add(recipe3)
 
-        }
-    }
+
+    val recipe4 = Recipe(
+        R.drawable.mush_risotto,
+        "Mushroom Risotto",
+        "Mushroom risotto is a classic Italian dish made with Arborio rice cooked in a rich and creamy mushroom broth, often finished with grated Parmesan cheese and chopped parsley. It's a delicious and comforting meal that's perfect for a cozy night in.",
+        """
+Ingredients:
+- 1 pound mushrooms, sliced
+- 1 onion, finely chopped
+- 2 cloves garlic, minced
+- 1 1/2 cups Arborio rice
+- 4 cups chicken or vegetable broth
+- 1/2 cup dry white wine
+- 1/2 cup grated Parmesan cheese
+- 2 tbsp butter
+- Salt and pepper to taste
+- Fresh parsley or thyme, chopped (optional)
+
+Instructions:
+1. Heat a large pan over medium-high heat. Add 1 tbsp butter and sauté the sliced mushrooms until they release their moisture and start to brown. Remove the mushrooms from the pan and set aside.
+2. In the same pan, melt the remaining 1 tbsp butter and add the chopped onion and minced garlic. Sauté for a few minutes until the onions are translucent.
+3. Add the Arborio rice to the pan and stir to coat the grains in the butter and onion mixture. Cook for 1-2 minutes until the rice becomes slightly translucent.
+4. Pour in the white wine and stir continuously until the liquid has been absorbed.
+5. Add 1 cup of the broth to the pan and stir continuously until the liquid has been absorbed. Repeat this process with the remaining broth, adding one cup at a time and stirring constantly until the rice is cooked and creamy.
+6. Once the rice is cooked, stir in the sautéed mushrooms and grated Parmesan cheese. Season with salt and pepper to taste.
+7. Garnish with chopped parsley or thyme (optional) and serve immediately.""")
+    recipeList.add(recipe4)
+
+            val recipe5 = Recipe(
+                R.drawable.mush_cream,
+                "Cream of mushroom soup",
+                "Cream of mushroom is a rich and creamy soup made with sautéed mushrooms, onions, and garlic, blended with cream and seasoned with herbs and spices. It's a comforting and savory dish that's perfect for cooler weather.",
+                """Ingredients:
+- 1/4 cup unsalted butter
+- 1 small onion, diced
+- 8 oz. sliced mushrooms
+- 1/4 cup all-purpose flour
+- 4 cups chicken or vegetable broth
+- 1 cup heavy cream
+- Salt and pepper to taste
+
+Instructions:
+1. In a large pot or Dutch oven, melt the butter over medium heat. Add the diced onion and sauté until translucent, about 5 minutes.
+2. Add the sliced mushrooms to the pot and cook until they release their liquid and start to brown, about 10 minutes.
+3. Sprinkle the flour over the mushrooms and stir well to coat. Cook for an additional 2-3 minutes, until the flour has been absorbed and the mixture is thickened.
+4. Slowly pour in the chicken or vegetable broth while whisking constantly to avoid lumps. Bring the soup to a simmer and cook for 10-15 minutes, until the mushrooms are tender and the soup has thickened.
+5. Stir in the heavy cream and season with salt and pepper to taste. Allow the soup to cook for an additional 5-10 minutes to heat through and allow the flavors to meld.
+6. Serve hot, garnished with chopped fresh parsley or thyme if desired.
+
+""")
+            recipeList.add(recipe5)
+
+}
+}
+
 
     override fun onClick(recipe: Recipe) {
         val intent = Intent(context,DetailActivity::class.java)
